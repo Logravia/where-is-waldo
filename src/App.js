@@ -1,12 +1,12 @@
 import './App.css';
-import Canvas from './Canvas'
+import Canvas from './components/Canvas'
+import StyledApp from './styles/App.styled'
 
 function App() {
   return (
-    <div className="App">
-      <p>TEST</p>
+    <StyledApp>
       <Canvas />
-    </div>
+    </StyledApp>
   );
 }
 
