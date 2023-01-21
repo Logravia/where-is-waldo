@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CharSelector from './CharSelector'
 import StyledCanvas from '../styles/Canvas.styled'
+import {withinRectangle} from '../helper'
 
-function Canvas({chars, image}) {
+function Canvas({img, chars, getCharArea}) {
 
   let [showPopUp, setShowPopUp] = useState(false)
   let [clickCoords, setClickCoords] = useState(undefined)
@@ -25,20 +26,28 @@ function Canvas({chars, image}) {
   function handleClick(e) {
     let coords = captureCoords(e);
     let relative = relativeCoords(e.currentTarget, coords);
-    console.log(relative)
     setClickCoords(relative);
     setShowPopUp(true);
-    console.log("Hi")
   }
 
-  function selectionDone(selected) {
+  async function handleSelection(charName) {
+    const rectangle = await getCharArea(charName);
 
+    if (withinRectangle(clickCoords, rectangle)) {
+      // note that it is a success
+      console.log("You got it", clickCoords);
+      setShowPopUp(false);
+    } else {
+     // note that it is a failure
+      console.log("Nope!", clickCoords);
+      setShowPopUp(false);
+    }
   }
 
   return (
     <StyledCanvas onClick={handleClick}>
-      <h1>Test</h1>
-      {showPopUp ? <CharSelector showAt={clickCoords} chars={chars} /> : null}
+      <img alt="" src={img} />
+      {showPopUp ? <CharSelector showAt={clickCoords} chars={chars} handleSelection={handleSelection}/> : null}
     </StyledCanvas>
   )
 }

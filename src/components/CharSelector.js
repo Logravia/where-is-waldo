@@ -1,11 +1,13 @@
 import {StyledCharSelector} from '../styles/CharSelector.styled'
+import CharOptions from './CharOptions'
 
-function CharSelector ({showAt, chars}) {
-
+function CharSelector ({showAt, chars, handleSelection}) {
 
   return (
     <StyledCharSelector showAt={showAt}>
-      <h1>This is where I would show you my characters if I had any.</h1>
+      {chars.map(char=>
+        <CharOptions char={char} key={char.name} handleSelection={handleSelection}/>
+      )}
     </StyledCharSelector>
   )
 }
