@@ -1,14 +1,8 @@
 import StyledCharOptions from '../styles/CharOptions.styled'
 
 function CharOptions({ char, handleSelection }) {
-
-  function handleClick(e) {
-    e.stopPropagation();
-    handleSelection(char.name)
-  }
-
   return (
-    <StyledCharOptions onClick={handleClick}>
+    <StyledCharOptions onClick={_=>handleSelection(char.name)}>
       <img alt="" src={char.img}/>
       <p>{char.name}</p>
     </StyledCharOptions>
