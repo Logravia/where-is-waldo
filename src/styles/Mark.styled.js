@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const radius = 25;
+const radius = 30;
 
 const StyledMark = styled.div`
    position: absolute;
@@ -11,5 +11,7 @@ const StyledMark = styled.div`
    height: ${radius*2}px;
    border-radius: 100%;
    border-color: green;
+   border-width: 8px;
+   box-sizing: border-box;
 `
 export default StyledMark
