@@ -2,8 +2,8 @@ function Score({time, found, total}) {
  return (
    <div>
      <p>Time spent searching: {time}</p>
-     <p>Cages found: {found}</p>
-     <p>Cages yet to find: {total}</p>
+     <p>Characters found: {found}</p>
+     <p>Characters yet to be found: {total}</p>
    </div>
  )
 }

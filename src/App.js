@@ -25,31 +25,16 @@ function App() {
   }
 
   async function getCharArea(charName) {
-    console.log("Get location of", charName)
     return {minX: 725, minY: 221, maxX: 821, maxY: 263};
   }
 
-  function removeChar(char){
-    // TODO when character is succesfully found it should be removed
-  }
-
-  function startTimer(){
-
-  }
-
-  function resetTimer() {
-
-  }
-
-
   useEffect(()=>{
-    setCanvasData("Cage");
+    setCanvasData("pool-party");
   }, [])
 
-  //TODO Header holding info about time and success and available levels
   return (
     <StyledApp>
-      <Header time={time} found={foundNum} total={totalToFind}/>
+      <Header time={time} found={foundNum} total={totalToFind} chars={chars}/>
       <Canvas img={canvasImg} chars={chars} getCharArea={getCharArea}/>
     </StyledApp>
   );

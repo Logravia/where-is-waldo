@@ -3,11 +3,13 @@ import StyledInfoControl from '../styles/InfoControl.styled'
 import Controls from './Controls'
 import Title from './Title'
 import Score from './Score'
+import SearchHints from './SearchHints'
 
-function Header({time, found, total, newCanvas}) {
+function Header({time, found, total, newCanvas, chars}) {
  return (
    <StyledHeader>
-     <Title></Title>
+     <Title/>
+     <SearchHints chars={chars}/>
      <StyledInfoControl>
        <Controls newCanvas={newCanvas}></Controls>
        <Score time={time} found={found} total={total}></Score>
