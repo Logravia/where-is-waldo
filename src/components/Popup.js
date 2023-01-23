@@ -1,9 +1,9 @@
-import StyledPopup from '../StyledPopup.styled'
+import StyledPopup from '../styles/Popup.styled'
 
-function Popup ({message, type}) {
+function Popup ({data}) {
   return (
-    <StyledPopup type={type}>
-      <p>{message}</p>
+    <StyledPopup type={data.type}>
+      <p>{data.message}</p>
     </StyledPopup>
   )
 }
