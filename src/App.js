@@ -9,7 +9,6 @@ function App() {
 
   let [canvasImg, setCanvasImg] = useState(undefined);
   let [chars, setChars] = useState([]);
-  let [time, setTime] = useState(0);
   let [foundNum, setFoundNum] = useState(0);
   let [totalToFind, setTotalToFind] = useState(0);
 
@@ -40,7 +39,7 @@ function App() {
 
   return (
     <StyledApp>
-      <Header time={time} found={foundNum} total={totalToFind} chars={chars}/>
+      <Header found={foundNum} total={totalToFind} chars={chars}/>
       <Canvas img={canvasImg} chars={chars} getCharArea={getCharArea} removeChar={removeChar}/>
     </StyledApp>
   );
