@@ -4,7 +4,7 @@ import StyledCanvas from '../styles/Canvas.styled'
 import {withinRectangle} from '../helper'
 import MarkContainer from './MarkContainer'
 
-function Canvas({img, chars, getCharArea}) {
+function Canvas({img, chars, getCharArea, removeChar}) {
 
   let [showPopUp, setShowPopUp] = useState(false)
   let [clickCoords, setClickCoords] = useState(undefined)
@@ -26,6 +26,8 @@ function Canvas({img, chars, getCharArea}) {
   }
 
   function handleClick(e) {
+    if (chars.length === 0){return}
+
     let coords = captureCoords(e);
     let relative = relativeCoords(e.currentTarget, coords);
     setClickCoords(relative);
@@ -43,6 +45,7 @@ function Canvas({img, chars, getCharArea}) {
       let [...newMarkedCoords] = markedCoords;
       newMarkedCoords.push(clickCoords);
       setMarkedCoords(newMarkedCoords);
+      removeChar(charName);
     } else {
      // note that it is a failure
       console.log("Nope!", clickCoords);

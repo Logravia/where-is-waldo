@@ -28,6 +28,12 @@ function App() {
     return {minX: 725, minY: 221, maxX: 821, maxY: 263};
   }
 
+  function removeChar(name) {
+    let index = chars.findIndex(char=>char.name===name)
+    chars.splice(index, 1);
+    setChars([...chars]);
+  }
+
   useEffect(()=>{
     setCanvasData("pool-party");
   }, [])
@@ -35,7 +41,7 @@ function App() {
   return (
     <StyledApp>
       <Header time={time} found={foundNum} total={totalToFind} chars={chars}/>
-      <Canvas img={canvasImg} chars={chars} getCharArea={getCharArea}/>
+      <Canvas img={canvasImg} chars={chars} getCharArea={getCharArea} removeChar={removeChar}/>
     </StyledApp>
   );
 }
