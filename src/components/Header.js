@@ -1,18 +1,16 @@
 import StyledHeader from '../styles/Header.styled'
 import StyledInfoControl from '../styles/InfoControl.styled'
-import Stopwatch from './Stopwatch'
 import Title from './Title'
 import Score from './Score'
 import SearchHints from './SearchHints'
 
-function Header({found, total, newCanvas, chars}) {
+function Header({found, total, chars, startTime}) {
  return (
    <StyledHeader>
      <Title/>
      <SearchHints chars={chars}/>
      <StyledInfoControl>
-       <Stopwatch/>
-       <Score found={found} total={total}></Score>
+       <Score found={found} total={total} startTime={startTime}/>
      </StyledInfoControl>
    </StyledHeader>
  )

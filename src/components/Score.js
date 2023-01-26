@@ -1,7 +1,9 @@
-function Score({time, found, total}) {
+import SearchTime from './SearchTime'
+
+function Score({startTime, found, total}) {
  return (
    <div>
-     <p>Time spent searching: {time}</p>
+     <SearchTime startTime={startTime}/>
      <p>Characters found: {found}</p>
      <p>Characters yet to be found: {total}</p>
    </div>

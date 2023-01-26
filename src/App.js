@@ -11,6 +11,7 @@ function App() {
   let [chars, setChars] = useState([]);
   let [foundNum, setFoundNum] = useState(0);
   let [totalToFind, setTotalToFind] = useState(0);
+  let [gameStartTime, setGameStartTime] = useState(undefined)
 
   async function fetchCanvasData(name) {
     console.log("Loading canvas named: ", name);
@@ -21,16 +22,23 @@ function App() {
     let data = await fetchCanvasData(name);
     setCanvasImg(data.canvasImg);
     setChars(data.chars);
+    setTotalToFind(data.chars.length)
   }
 
   async function getCharArea(charName) {
+    if (gameStartTime === undefined) {
+      setGameStartTime(Date.now());
+      console.log("Time was updated")
+    }
     return {minX: 725, minY: 221, maxX: 821, maxY: 263};
   }
 
   function removeChar(name) {
+
     let index = chars.findIndex(char=>char.name===name)
     chars.splice(index, 1);
     setChars([...chars]);
+    setFoundNum(prev=>prev+1);
   }
 
   useEffect(()=>{
@@ -39,7 +47,7 @@ function App() {
 
   return (
     <StyledApp>
-      <Header found={foundNum} total={totalToFind} chars={chars}/>
+      <Header found={foundNum} total={totalToFind} chars={chars} startTime={gameStartTime}/>
       <Canvas img={canvasImg} chars={chars} getCharArea={getCharArea} removeChar={removeChar}/>
     </StyledApp>
   );
