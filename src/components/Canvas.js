@@ -5,7 +5,7 @@ import {withinRectangle} from '../helper'
 import MarkContainer from './MarkContainer'
 import Popup from './Popup'
 
-function Canvas({img, chars, getCharArea, removeChar}) {
+function Canvas({img, chars, getCharArea, removeChar, startGame, gameStarted}) {
 
   let [showingSelector, setShowingSelector] = useState(false)
   let [showingPopup, setShowingPopup] = useState(false)
@@ -35,7 +35,7 @@ function Canvas({img, chars, getCharArea, removeChar}) {
   }
 
   function handleClick(e) {
-    if (chars.length === 0){return}
+    if (chars.length === 0 || !gameStarted){return}
 
     let coords = captureCoords(e);
     let relative = relativeCoords(e.currentTarget, coords);
@@ -63,7 +63,7 @@ function Canvas({img, chars, getCharArea, removeChar}) {
   return (
     <StyledCanvas onClick={handleClick}>
       {showingPopup ? <Popup data={popupData} /> : null}
-      <img alt="" src={img} />
+      {gameStarted ? <img alt="" src={img} /> : <h1 onClick={startGame}>Click Here To Start!</h1>}
       {markedCoords.length > 0 ? <MarkContainer locations={markedCoords}/> : null}
       {showingSelector ? <CharSelector showAt={clickCoords} chars={chars} handleSelection={handleSelection}/> : null}
     </StyledCanvas>

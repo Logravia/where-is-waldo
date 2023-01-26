@@ -4,11 +4,11 @@ import Title from './Title'
 import Score from './Score'
 import SearchHints from './SearchHints'
 
-function Header({found, total, chars, startTime}) {
+function Header({found, total, chars, startTime, gameStarted}) {
  return (
    <StyledHeader>
      <Title/>
-     <SearchHints chars={chars}/>
+     {gameStarted ? <SearchHints chars={chars}/> : null}
      <StyledInfoControl>
        <Score found={found} total={total} startTime={startTime}/>
      </StyledInfoControl>

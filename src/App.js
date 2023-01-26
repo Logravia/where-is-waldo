@@ -11,7 +11,9 @@ function App() {
   let [chars, setChars] = useState([]);
   let [foundNum, setFoundNum] = useState(0);
   let [totalToFind, setTotalToFind] = useState(0);
+  let [gameStarted, setGameStarted] = useState(false);
   let [gameStartTime, setGameStartTime] = useState(undefined)
+  let [gameEndTime, setGameEndTime] = useState(undefined);
 
   async function fetchCanvasData(name) {
     console.log("Loading canvas named: ", name);
@@ -25,11 +27,12 @@ function App() {
     setTotalToFind(data.chars.length)
   }
 
+  function startGame() {
+    setGameStarted(true)
+    setGameStartTime(Date.now());
+  }
+
   async function getCharArea(charName) {
-    if (gameStartTime === undefined) {
-      setGameStartTime(Date.now());
-      console.log("Time was updated")
-    }
     return {minX: 725, minY: 221, maxX: 821, maxY: 263};
   }
 
@@ -47,8 +50,8 @@ function App() {
 
   return (
     <StyledApp>
-      <Header found={foundNum} total={totalToFind} chars={chars} startTime={gameStartTime}/>
-      <Canvas img={canvasImg} chars={chars} getCharArea={getCharArea} removeChar={removeChar}/>
+      <Header found={foundNum} total={totalToFind} chars={chars} startTime={gameStartTime} endTime={gameEndTime} gameStarted={gameStarted}/>
+      <Canvas img={canvasImg} chars={chars} getCharArea={getCharArea} removeChar={removeChar} startGame={startGame} gameStarted={gameStarted}/>
     </StyledApp>
   );
 }
