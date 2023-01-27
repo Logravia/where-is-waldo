@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns'
 
-function SearchTime({ startTime, endTime }) {
+function SearchTime({ startTime, gameEnded}) {
 
   let [timePassed, setTimePassed] = useState('00:00')
   let [interval, saveInterval] = useState(undefined);
@@ -15,14 +15,14 @@ function SearchTime({ startTime, endTime }) {
 
   useEffect(() => {
     if (startTime === undefined) { return; }
-    if (endTime) {clearInterval(interval)}
+    if (gameEnded) {clearInterval(interval); return;}
 
     saveInterval(setInterval(() => {
       updatePassedTime()
     }, 1000))
 
     return () => { clearInterval(interval); console.log("I was unmounted", interval) }
-  }, [startTime])
+  }, [startTime, gameEnded])
 
   return (
 

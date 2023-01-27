@@ -12,6 +12,7 @@ function App() {
   let [foundNum, setFoundNum] = useState(0);
   let [totalToFind, setTotalToFind] = useState(0);
   let [gameStarted, setGameStarted] = useState(false);
+  let [gameEnded, setGameEnded] = useState(false);
   let [gameStartTime, setGameStartTime] = useState(undefined)
   let [gameEndTime, setGameEndTime] = useState(undefined);
 
@@ -37,11 +38,12 @@ function App() {
   }
 
   function removeChar(name) {
-
     let index = chars.findIndex(char=>char.name===name)
     chars.splice(index, 1);
     setChars([...chars]);
     setFoundNum(prev=>prev+1);
+
+    if (chars.length === 0) {setGameEnded(true)}
   }
 
   useEffect(()=>{
@@ -50,7 +52,7 @@ function App() {
 
   return (
     <StyledApp>
-      <Header found={foundNum} total={totalToFind} chars={chars} startTime={gameStartTime} endTime={gameEndTime} gameStarted={gameStarted}/>
+      <Header found={foundNum} total={totalToFind} chars={chars} startTime={gameStartTime} endTime={gameEndTime} gameStarted={gameStarted} gameEnded={gameEnded}/>
       <Canvas img={canvasImg} chars={chars} getCharArea={getCharArea} removeChar={removeChar} startGame={startGame} gameStarted={gameStarted}/>
     </StyledApp>
   );
