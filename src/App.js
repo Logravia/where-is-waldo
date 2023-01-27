@@ -3,6 +3,7 @@ import Canvas from './components/Canvas'
 import StyledApp from './styles/App.styled'
 import canvas from './imgs/canvas.jpg'
 import Header from './components/Header'
+import VictoryScreen from './components/VictoryScreen'
 import placeholder from './imgs/pidgey.png'
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
 
   return (
     <StyledApp>
+      {gameEnded ? <VictoryScreen/> : null}
       <Header found={foundNum} total={totalToFind} chars={chars} startTime={gameStartTime} endTime={gameEndTime} gameStarted={gameStarted} gameEnded={gameEnded}/>
       <Canvas img={canvasImg} chars={chars} getCharArea={getCharArea} removeChar={removeChar} startGame={startGame} gameStarted={gameStarted}/>
     </StyledApp>
