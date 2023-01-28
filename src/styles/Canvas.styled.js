@@ -8,7 +8,7 @@ const StyledCanvas = styled.div`
     &>img {
         width: 95%;
         border-style: solid;
-        border-width: 20px;
+        border-width: 0px;
         box-sizing: border-box;
         border-radius: 50px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
