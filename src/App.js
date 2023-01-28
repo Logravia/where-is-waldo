@@ -4,7 +4,9 @@ import StyledApp from './styles/App.styled'
 import canvas from './imgs/canvas.jpg'
 import Header from './components/Header'
 import VictoryScreen from './components/VictoryScreen'
-import placeholder from './imgs/pidgey.png'
+import { db } from './firebase'
+import { collection, getDocs } from "firebase/firestore";
+
 
 function App() {
 
@@ -15,11 +17,15 @@ function App() {
   let [gameStarted, setGameStarted] = useState(false);
   let [gameEnded, setGameEnded] = useState(false);
   let [gameStartTime, setGameStartTime] = useState(undefined)
-  let [gameEndTime, setGameEndTime] = useState(undefined);
 
   async function fetchCanvasData(name) {
-    console.log("Loading canvas named: ", name);
-    return { chars: [{img: placeholder, name: "Pidgey" }], canvasImg: canvas };
+    let chars = []
+    const charData = await getDocs(collection(db, name));
+    charData.forEach((doc) => {
+      chars.push(doc.data())
+    });
+
+    return { chars: chars, canvasImg: canvas };
   }
 
   async function setCanvasData(name) {
@@ -34,8 +40,10 @@ function App() {
     setGameStartTime(Date.now());
   }
 
-  async function getCharArea(charName) {
-    return {minX: 725, minY: 221, maxX: 821, maxY: 263};
+  function getCharArea(charName) {
+    let location = chars.find(char=>char.name===charName).location;
+    console.log("Char location: ", location)
+    return location
   }
 
   function removeChar(name) {
@@ -54,7 +62,7 @@ function App() {
   return (
     <StyledApp>
       {gameEnded ? <VictoryScreen/> : null}
-      <Header found={foundNum} total={totalToFind} chars={chars} startTime={gameStartTime} endTime={gameEndTime} gameStarted={gameStarted} gameEnded={gameEnded}/>
+      <Header found={foundNum} total={totalToFind} chars={chars} startTime={gameStartTime}  gameStarted={gameStarted} gameEnded={gameEnded}/>
       <Canvas img={canvasImg} chars={chars} getCharArea={getCharArea} removeChar={removeChar} startGame={startGame} gameStarted={gameStarted}/>
     </StyledApp>
   );
