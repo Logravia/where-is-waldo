@@ -67,18 +67,21 @@ function Canvas({img, chars, getCharArea, removeChar, startGame, gameStarted}) {
     setShowingSelector(!showingSelector);
   }
 
+  function pixelCoordsToPercentage(coords) {
+    return {x: ((coords.x)/imgRes.width)*100, y: ((coords.y)/imgRes.height)*100}
+  }
+
   async function handleSelection(charName) {
     const rect = getCharArea(charName);
 
-    let coordsWithinCanvas = {x: ((clickCoords.x)/imgRes.width)*100, y: ((clickCoords.y)/imgRes.height)*100}
-    console.log(coordsWithinCanvas, clickCoords)
+    let percentageCoords = pixelCoordsToPercentage(clickCoords);
 
     if (withinRectangle(clickCoords, rect)) {
       showPopUp("You got it!", "success");
       setShowingSelector(false);
 
       let [...newMarkedCoords] = markedCoords;
-      newMarkedCoords.push(coordsWithinCanvas);
+      newMarkedCoords.push(percentageCoords);
       setMarkedCoords(newMarkedCoords);
       removeChar(charName);
     } else {
@@ -92,7 +95,7 @@ function Canvas({img, chars, getCharArea, removeChar, startGame, gameStarted}) {
       {gameStarted ? <img alt="" src={img} /> : <h1 onClick={startGame}>Click Here To Start!</h1>}
       {showingPopup ? <Popup data={popupData} /> : null}
       {markedCoords.length > 0 ? <MarkContainer locations={markedCoords}/> : null}
-      {showingSelector ? <CharSelector showAt={clickCoords} chars={chars} handleSelection={handleSelection}/> : null}
+      {showingSelector ? <CharSelector showAt={pixelCoordsToPercentage(clickCoords)} chars={chars} handleSelection={handleSelection}/> : null}
     </StyledCanvas>
   )
 }

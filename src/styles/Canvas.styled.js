@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 const StyledCanvas = styled.div`
     position: relative;
-    width: 95%;
+    width: 85%;
+    text-align: center;
 
     &>img {
         width: 100%;

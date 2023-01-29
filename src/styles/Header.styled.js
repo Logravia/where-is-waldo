@@ -6,7 +6,7 @@ const StyledHeader = styled.header`
     justify-content: space-between;
     width: 80%;
     margin: 0 auto;
-    position: sticky;
     top: 0px;
+
 `
 export default StyledHeader

@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+const offset = 1;
+
 export const StyledCharSelector = styled.div`
    position: absolute;
    background: white;
@@ -8,6 +10,6 @@ export const StyledCharSelector = styled.div`
    border-width: 15px;
    border-radius: 10px;
    opacity: 0.92;
-   top: ${props => props.showAt.y + 5}px;
-   left: ${props => props.showAt.x + 5}px;
+   top: ${props => props.showAt.y + offset}%;
+   left: ${props => props.showAt.x + offset}%;
 `
