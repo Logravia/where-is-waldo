@@ -9,6 +9,11 @@ const StyledCharacterHint = styled.div`
     &>img {
         width: 50px;
     }
+
+background: #ededed;
+border-radius: 5%;
+padding: 12px;
+
 `
 
 export default StyledCharacterHint

@@ -1,8 +1,10 @@
+import StyledTitle from '../styles/Title.styled'
+
 function Title() {
   return (
-    <div>
+    <StyledTitle>
       <h1>Find The Characters</h1>
-    </div>
+    </StyledTitle>
   )
 }
 

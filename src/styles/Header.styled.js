@@ -7,6 +7,7 @@ const StyledHeader = styled.header`
     width: 80%;
     margin: 0 auto;
     top: 0px;
+    padding: 5px;
 
 `
 export default StyledHeader
