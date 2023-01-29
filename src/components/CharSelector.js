@@ -4,7 +4,7 @@ import CharOptions from './CharOptions'
 function CharSelector ({showAt, chars, handleSelection}) {
 
   return (
-    <StyledCharSelector showAt={showAt}>
+    <StyledCharSelector showAt={showAt} id="char-selector">
       {chars.map(char=>
         <CharOptions char={char} key={char.name} handleSelection={handleSelection}/>
       )}

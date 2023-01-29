@@ -13,6 +13,7 @@ function Canvas({img, chars, getCharArea, removeChar, startGame, gameStarted}) {
   let [clickCoords, setClickCoords] = useState(undefined)
   let [markedCoords, setMarkedCoords] = useState([])
   let [imgRes, setImgRes] = useState({width: 0, height: 0});
+  let [popUpTimeout, setPopUpTimeout] = useState(undefined)
 
   useEffect(() => {
     function noteImgRes() {
@@ -52,19 +53,30 @@ function Canvas({img, chars, getCharArea, removeChar, startGame, gameStarted}) {
     }
   }
 
-  function showPopUp(msg, type, length = 3000) {
+  function showPopUp(msg, type, length = 2500) {
+    if (popUpTimeout) { clearTimeout(popUpTimeout); }
+
     setPopupData({message: msg, type: type})
     setShowingPopup(true)
-    setTimeout(_=>setShowingPopup(false), length);
+    let timeout = setTimeout(_=>setShowingPopup(false), length);
+    setPopUpTimeout(timeout);
   }
 
   function handleClick(e) {
     if (chars.length === 0 || !gameStarted){return}
 
-    let coords = captureCoords(e);
-    let relative = clickedOnImgWhere(e.currentTarget, coords);
-    setClickCoords(relative);
-    setShowingSelector(!showingSelector);
+    if (showingPopup) {
+      setShowingPopup(false)
+      return;
+    }
+
+    if (!showingSelector){
+      let coords = captureCoords(e);
+      let relative = clickedOnImgWhere(e.currentTarget, coords);
+      setClickCoords(relative);
+    }
+
+      setShowingSelector(!showingSelector);
   }
 
   function pixelCoordsToPercentage(coords) {
@@ -93,8 +105,8 @@ function Canvas({img, chars, getCharArea, removeChar, startGame, gameStarted}) {
   return (
     <StyledCanvas onClick={handleClick}>
       {gameStarted ? <img alt="" src={img} /> : <h1 onClick={startGame}>Click Here To Start!</h1>}
-      {showingPopup ? <Popup data={popupData} /> : null}
-      {markedCoords.length > 0 ? <MarkContainer locations={markedCoords}/> : null}
+      {showingPopup ? <Popup data={popupData} showAt={pixelCoordsToPercentage(clickCoords)} /> : null}
+      <MarkContainer locations={markedCoords}/>
       {showingSelector ? <CharSelector showAt={pixelCoordsToPercentage(clickCoords)} chars={chars} handleSelection={handleSelection}/> : null}
     </StyledCanvas>
   )

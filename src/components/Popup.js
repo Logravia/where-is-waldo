@@ -1,8 +1,8 @@
 import StyledPopup from '../styles/Popup.styled'
 
-function Popup ({data}) {
+function Popup ({data, showAt}) {
   return (
-    <StyledPopup type={data.type}>
+    <StyledPopup type={data.type} showAt={showAt}>
       <p>{data.message}</p>
     </StyledPopup>
   )
