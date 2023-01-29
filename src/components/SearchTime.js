@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns'
+import ScoreDataSpan from '../styles/ScoreDataSpan.styled'
 
 function SearchTime({ startTime, gameEnded}) {
 
@@ -26,7 +27,7 @@ function SearchTime({ startTime, gameEnded}) {
 
   return (
 
-    <p>Time spent searching: {timePassed}</p>
+    <p>Time spent searching: <ScoreDataSpan>{timePassed}</ScoreDataSpan></p>
   )
 }
 
