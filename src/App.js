@@ -42,7 +42,6 @@ function App() {
 
   function getCharArea(charName) {
     let location = chars.find(char=>char.name===charName).location;
-    console.log("Char location: ", location)
     return location
   }
 

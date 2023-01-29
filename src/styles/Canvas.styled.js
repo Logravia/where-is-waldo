@@ -2,11 +2,10 @@ import styled from 'styled-components'
 
 const StyledCanvas = styled.div`
     position: relative;
-    display: flex;
-    justify-content: center;
+    width: 95%;
 
     &>img {
-        width: 95%;
+        width: 100%;
         border-style: solid;
         border-width: 0px;
         box-sizing: border-box;

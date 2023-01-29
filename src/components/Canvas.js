@@ -40,7 +40,7 @@ function Canvas({img, chars, getCharArea, removeChar, startGame, gameStarted}) {
     return {width: img.width, height: img.height}
   }
 
-  // Returns coordinates
+  // Returns absolute coordinates of where you clicked on the image
   function clickedOnImgWhere(container, viewportCoords) {
     let scaledImg = container.firstChild;
     let selfCoords = scaledImg.getBoundingClientRect();
@@ -70,17 +70,15 @@ function Canvas({img, chars, getCharArea, removeChar, startGame, gameStarted}) {
   async function handleSelection(charName) {
     const rect = getCharArea(charName);
 
-
-
-
-    console.log("You clicked here:", clickCoords);
+    let coordsWithinCanvas = {x: ((clickCoords.x)/imgRes.width)*100, y: ((clickCoords.y)/imgRes.height)*100}
+    console.log(coordsWithinCanvas, clickCoords)
 
     if (withinRectangle(clickCoords, rect)) {
       showPopUp("You got it!", "success");
       setShowingSelector(false);
 
       let [...newMarkedCoords] = markedCoords;
-      newMarkedCoords.push(clickCoords);
+      newMarkedCoords.push(coordsWithinCanvas);
       setMarkedCoords(newMarkedCoords);
       removeChar(charName);
     } else {
@@ -91,8 +89,8 @@ function Canvas({img, chars, getCharArea, removeChar, startGame, gameStarted}) {
 
   return (
     <StyledCanvas onClick={handleClick}>
-      {showingPopup ? <Popup data={popupData} /> : null}
       {gameStarted ? <img alt="" src={img} /> : <h1 onClick={startGame}>Click Here To Start!</h1>}
+      {showingPopup ? <Popup data={popupData} /> : null}
       {markedCoords.length > 0 ? <MarkContainer locations={markedCoords}/> : null}
       {showingSelector ? <CharSelector showAt={clickCoords} chars={chars} handleSelection={handleSelection}/> : null}
     </StyledCanvas>
