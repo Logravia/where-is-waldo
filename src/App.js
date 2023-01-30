@@ -16,7 +16,10 @@ function App() {
   let [totalToFind, setTotalToFind] = useState(0);
   let [gameStarted, setGameStarted] = useState(false);
   let [gameEnded, setGameEnded] = useState(false);
+
   let [gameStartTime, setGameStartTime] = useState(undefined)
+  let [gameEndTime, setGameEndTime] = useState(undefined)
+  let [totalGameTime, setTotalGameTime] = useState(undefined)
 
   async function fetchCanvasData(name) {
     let chars = []
@@ -51,7 +54,21 @@ function App() {
     setChars([...chars]);
     setFoundNum(prev=>prev+1);
 
-    if (chars.length === 0) {setGameEnded(true)}
+    // TODO onGameEnd
+    if (chars.length === 0) {
+      let curTime = Date.now()
+      setGameEndTime(curTime);
+
+      let timePassed = curTime - gameStartTime;
+      console.log(timePassed)
+      setTotalGameTime(timePassed)
+
+      setGameEnded(true)
+    }
+  }
+
+  async function submitScore(name){
+    console.log("Your score was submitted.")
   }
 
   useEffect(()=>{
@@ -60,7 +77,7 @@ function App() {
 
   return (
     <StyledApp>
-      {gameEnded ? <VictoryScreen/> : null}
+      {gameEnded ? <VictoryScreen time={totalGameTime} submitScore={submitScore}/> : null}
       <Header found={foundNum} total={totalToFind} chars={chars} startTime={gameStartTime}  gameStarted={gameStarted} gameEnded={gameEnded}/>
       <Canvas img={canvasImg} chars={chars} getCharArea={getCharArea} removeChar={removeChar} startGame={startGame} gameStarted={gameStarted}/>
     </StyledApp>
